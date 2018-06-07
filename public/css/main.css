@@ -1,0 +1,80 @@
+body {
+  font-family: Arial;
+}
+
+nav {
+  width: 100%;
+  background-color: lightgrey;
+  padding: 20px 0;
+}
+
+menu {
+  width: 75%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  padding: 0 20px;
+}
+
+a:hover, .key:hover  {
+  opacity: .8;
+  cursor: pointer;
+}
+
+.keyboard {
+  width: 50%;
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.key {
+  border: 1px solid black;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgrey;
+}
+
+.word, .blanks {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+}
+
+.word-space {
+  border: 1px solid black;
+  width: 20%;
+}
+
+.word-button {
+  margin-left: 10px;
+}
+
+.blanks {
+  margin: 100px auto 50px auto;
+}
+
+.blank {
+  border-bottom: 1px solid black;
+  width: 60px;
+  height: 60px;
+  margin: 0 10px;
+  padding-bottom: 10px;
+}
+
+.guesses {
+  width: 75%;
+  margin: auto;
+  text-align: center;
+}
