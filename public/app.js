@@ -76,12 +76,7 @@
       $('.guesses').text("You lost!");
     }
     else {
-      $('.guesses').text("Great job! Play again?");
-      const $yes = $('<div>').addClass('word-button').text('Yes').addClass('yes');
-      const $no = $('<div>').addClass('word-button').text('No');
-      $('.play-again').append($yes);
-      $('.play-again').append($no);
-      $yes.on('click', setPlayAgainButtonAction);
+      determineWin();
     }
   }
 
@@ -113,6 +108,21 @@
   const addLetter = (n) => {
     const $blank = $('.blank').eq(n);
     $blank.text(currentLetter);
+  }
+
+  const determineWin = () => {
+    if (gameWords.length === 1) {
+      $('.guesses').text("Congrats, you've won!!!");
+    }
+    else {
+      $('.guesses').text("Great job! Play again?");
+      const $yes = $('<div>').addClass('word-button').text('Yes').addClass('yes');
+      const $no = $('<div>').addClass('word-button').text('No');
+      $('.play-again').append($yes);
+      $('.play-again').append($no);
+      $yes.on('click', setPlayAgainButtonAction);
+      // $no.on('click', $('.play-again').empty());
+    }
   }
 
   const playNewGame = () => {
