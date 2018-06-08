@@ -7,9 +7,9 @@
   let currentWord = gameWords[Math.floor(Math.random() * (gameWords.length))];
   let currentLetter = null;
   let guesses = 8;
+  let correctLetters = [];
 
   const createBlanks = () => {
-    // let currentWord = gameWords[Math.floor(Math.random() * (gameWords.length))];
     console.log(currentWord);
     for (let i = 0; i < currentWord.length; i++) {
         const $blank = $('<div>').addClass('blank');
@@ -18,7 +18,6 @@
   }
 
   const createKeyboard = () => {
-    console.log(currentWord);
     for (let i = 0; i < alphabet.length; i++) {
       const $key = $('<div>').addClass('key').text(alphabet[i]);
       $('.keyboard').append($key);
@@ -34,33 +33,40 @@
     const $key = $(event.currentTarget);
     currentLetter = $key.text();
     console.log(currentLetter);
-    decreaseGuesses();
     checkLetterMatch();
+    decreaseGuesses();
   }
 
   const decreaseGuesses = () => {
-    console.log(guesses);
-    guesses--;
-    console.log(guesses);
-    $('.guesses').text(guesses + " guesses left!")
+    console.log('guesses:', guesses);
+    console.log('correctLetters:', correctLetters);
+    let currentWordDistinct = [...new Set(currentWord)];
+    if (guesses > 1 && correctLetters.length < currentWordDistinct.length) {
+      guesses--;
+      $('.guesses').text(guesses + " guesses left!");
+    }
+    else if (guesses === 1 && correctLetters.length < currentWordDistinct.length) {
+      $('.guesses').text("You lost!");
+    }
+    else {
+      $('.guesses').text("You win!");
+    }
   }
 
   const checkLetterMatch = () => {
     let currentWordArr = currentWord.split("");
-    console.log(currentWord);
     for (let i = 0; i < currentWordArr.length; i++) {
       if (currentWordArr[i] === currentLetter) {
         addLetter(i);
-        return true;
+      }
+      if (currentWordArr[i] === currentLetter && correctLetters.join("").indexOf(currentLetter) < 0) {
+        correctLetters.push(currentLetter);
+        console.log('correctLetters:', correctLetters);
       }
     }
-    return false;
   }
 
   const addLetter = (n) => {
-    console.log(currentLetter);
-    console.log(n);
-    console.log($('.blank').eq(n));
     const $blank = $('.blank').eq(n);
     $blank.text(currentLetter);
   }
