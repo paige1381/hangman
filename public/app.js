@@ -6,6 +6,7 @@
 
   let currentWord = gameWords[Math.floor(Math.random() * (gameWords.length))];
   let currentLetter = null;
+  let guessWord = null;
   let guesses = 8;
   let correctLetters = [];
 
@@ -15,6 +16,14 @@
         const $blank = $('<div>').addClass('blank');
         $('.blanks').append($blank);
     }
+  }
+
+  const createWordSpace = () => {
+    const $space = $('<input>').addClass('word-space').attr('type', 'text');
+    $('.word').append($space);
+    const $button = $('<div>').addClass('word-button').text('Guess word');
+    $('.word').append($button);
+    $button.on('click', setWordButtonAction);
   }
 
   const createKeyboard = () => {
@@ -37,6 +46,14 @@
     decreaseGuesses();
   }
 
+  const setWordButtonAction = (event) => {
+    const $button = $(event.currentTarget);
+    console.log($button.parent().children('.word-space'));
+    guessWord = $button.parent().children('.word-space').val();
+    checkWordMatch();
+    decreaseGuesses();
+  }
+
   const decreaseGuesses = () => {
     console.log('guesses:', guesses);
     console.log('correctLetters:', correctLetters);
@@ -49,7 +66,7 @@
       $('.guesses').text("You lost!");
     }
     else {
-      $('.guesses').text("You win!");
+      $('.guesses').text("Great job! Try again?");
     }
   }
 
@@ -66,12 +83,25 @@
     }
   }
 
+const checkWordMatch = () => {
+  if (guessWord.toUpperCase() === currentWord) {
+    let currentWordDistinct = [...new Set(currentWord)];
+    correctLetters = currentWordDistinct;
+    for (let i = 0; i < currentWord.length; i++) {
+      currentLetter = currentWord[i];
+      addLetter(i);
+    }
+  }
+  $('.word').remove();
+}
+
   const addLetter = (n) => {
     const $blank = $('.blank').eq(n);
     $blank.text(currentLetter);
   }
 
   createBlanks();
+  createWordSpace();
   createKeyboard();
   createGuesses();
 

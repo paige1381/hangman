@@ -20,7 +20,7 @@ a {
   padding: 0 20px;
 }
 
-a:hover, .key:hover  {
+a:hover, .key:hover, .word-button:hover  {
   opacity: .8;
   cursor: pointer;
 }
@@ -55,10 +55,15 @@ a:hover, .key:hover  {
 .word-space {
   border: 1px solid black;
   width: 20%;
+  padding: 10px;
 }
 
 .word-button {
   margin-left: 10px;
+  border: 1px solid black;
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .blanks {
