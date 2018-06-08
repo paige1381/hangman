@@ -71,6 +71,11 @@ a:hover, .key:hover  {
   height: 60px;
   margin: 0 10px;
   padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: row;
+  font-size: 30px;
 }
 
 .guesses {
