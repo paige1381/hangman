@@ -8,20 +8,20 @@ nav {
   padding: 20px 0;
 }
 
-menu {
+.menu {
   width: 75%;
   margin: auto;
   display: flex;
   justify-content: center;
 }
 
-a {
-  text-decoration: none;
+.link {
   padding: 0 20px;
+  text-decoration: underline;
 }
 
-a:hover, .key:hover, .word-button:hover  {
-  opacity: .8;
+ .link:hover, .key:hover, .word-button:hover  {
+  opacity: .7;
   cursor: pointer;
 }
 

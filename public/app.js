@@ -12,10 +12,21 @@
   let correctLetters = [];
 
 
+  const createNav = () => {
+    const $undo = $('<div>').addClass('link').text('Undo');
+    const $bookmark = $('<div>').addClass('link').text('Bookmark');
+    const $share = $('<div>').addClass('link').text('Share');
+    console.log($('.menu'));
+    $('.menu').append($undo);
+    $('.menu').append($bookmark);
+    $('.menu').append($share);
+    $undo.on('click', setUndoAction);
+    console.log($undo);
+  }
 
-  const createBlanks = (str) => {
-    console.log(str);
-    for (let i = 0; i < str.length; i++) {
+  const createBlanks = () => {
+    console.log(currentWord);
+    for (let i = 0; i < currentWord.length; i++) {
         const $blank = $('<div>').addClass('blank');
         $('.blanks').append($blank);
     }
@@ -44,14 +55,12 @@
   const setKeyAction = (event) => {
     const $key = $(event.currentTarget);
     currentLetter = $key.text();
-    console.log(currentLetter);
     checkLetterMatch();
     decreaseGuesses();
   }
 
   const setWordButtonAction = (event) => {
     const $button = $(event.currentTarget);
-    console.log($button.parent().children('.word-space'));
     guessWord = $button.parent().children('.word-space').val();
     checkWordMatch();
     decreaseGuesses();
@@ -61,6 +70,28 @@
     const $button = $(event.currentTarget);
     console.log(currentWord);
     playNewGame(currentWord);
+  }
+
+  const setUndoAction = (event) => {
+    const $undo = $(event.currentTarget);
+    if (guesses < 8) {
+      guesses++;
+      createGuesses();
+    }
+    console.log(correctLetters);
+    if (correctLetters[correctLetters.length - 1] === currentLetter) {
+      correctLetters.pop();
+      $('.blank').empty();
+      let currentWordArr = currentWord.split("");
+      for (let i = 0; i < correctLetters.length; i++) {
+        for (let j = 0; j < currentWord.length; j++) {
+          if (correctLetters[i] === currentWordArr[j]) {
+            const $blank = $('.blank').eq(j);
+            $blank.text(currentWordArr[j]);
+          }
+        }
+      }
+    }
   }
 
   const decreaseGuesses = () => {
@@ -121,7 +152,6 @@
       $('.play-again').append($yes);
       $('.play-again').append($no);
       $yes.on('click', setPlayAgainButtonAction);
-      // $no.on('click', $('.play-again').empty());
     }
   }
 
@@ -144,8 +174,8 @@
     console.log(guesses);
   }
 
-
-  createBlanks(currentWord);
+  createNav();
+  createBlanks();
   createWordSpace();
   createKeyboard();
   createGuesses();
