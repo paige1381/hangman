@@ -88,3 +88,10 @@ a:hover, .key:hover, .word-button:hover  {
   margin: auto;
   text-align: center;
 }
+
+.play-again {
+  display: flex;
+  width: 25%;
+  justify-content: center;
+  margin: 25px auto;
+}
