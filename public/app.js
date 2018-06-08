@@ -34,7 +34,15 @@
     const $key = $(event.currentTarget);
     currentLetter = $key.text();
     console.log(currentLetter);
+    decreaseGuesses();
     checkLetterMatch();
+  }
+
+  const decreaseGuesses = () => {
+    console.log(guesses);
+    guesses--;
+    console.log(guesses);
+    $('.guesses').text(guesses + " guesses left!")
   }
 
   const checkLetterMatch = () => {
