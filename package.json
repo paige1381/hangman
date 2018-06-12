@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/paige1381/hangman#readme",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "nodemon": "^1.17.5"
   }
