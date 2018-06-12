@@ -14,6 +14,7 @@ const turns = require('./models/turns.js');
 
 app.get('/', (req, res) => {
   gameWords.resetWords();
+  turns.resetTurns();
   turns.clearCorrectLetters();
   gameWords.findUnusedWords();
   turns.findRemainingTurns();
@@ -21,11 +22,31 @@ app.get('/', (req, res) => {
     alphabet: alphabet,
     currentWord: gameWords.currentWord,
     correctLetters: turns.correctLetters,
-    turns: turns.turnsLeft
+    turns: turns.turnsLeft,
+    gameWords: gameWords.gameWords
   });
   console.log('--- new game ---');
   console.log('gameWords:', gameWords.gameWords);
   console.log('currentWord:', gameWords.currentWord);
+});
+
+app.get('/newRound', (req, res) => {
+  console.log('currentWord:', gameWords.currentWord);
+  gameWords.flagUsedWord(gameWords.currentWord);
+  gameWords.findUnusedWords();
+  turns.clearCorrectLetters();
+  turns.resetTurns();
+  res.render('index.ejs', {
+    alphabet: alphabet,
+    currentWord: gameWords.currentWord,
+    correctLetters: turns.correctLetters,
+    turns: turns.turnsLeft,
+    gameWords: gameWords.gameWords
+  });
+  // console.log('--- new round ---');
+  // console.log('gameWords:', gameWords.gameWords);
+  // console.log('currentWord:', gameWords.currentWord);
+  // console.log('correctLetters:', turns.correctLetters);
 });
 
 app.get('/:id', (req, res) => {
@@ -36,7 +57,8 @@ app.get('/:id', (req, res) => {
     alphabet: alphabet,
     currentWord: gameWords.currentWord,
     correctLetters: turns.correctLetters,
-    turns: turns.turnsLeft
+    turns: turns.turnsLeft,
+    gameWords: gameWords.gameWords
   });
   console.log('--- new turn ---');
   console.log('gameWords:', gameWords.gameWords);
@@ -128,34 +150,34 @@ app.get('/:id', (req, res) => {
 // });
 
 
-app.get('/:id', (req, res) => {
-  currentLetter = alphabet[req.params.id];
-  if (currentWord.indexOf(currentLetter) > -1) {
-    correctLetters.push(currentLetter);
-  };
-  correctLetters = [...new Set(correctLetters)];
-  allLetters.push(currentLetter);
-  guesses -= 1;
-  link = null;
-  res.render('index.ejs', {
-    alphabet: alphabet,
-    gameWords: gameWords,
-    currentWord: currentWord,
-    guesses: guesses,
-    currentLetter: currentLetter,
-    guessWord: guessWord,
-    correctLetters: correctLetters,
-    allLetters: allLetters,
-    link: link
-  });
-  console.log('--- new turn ---');
-  console.log('gameWords:', gameWords);
-  console.log('currentWord:', currentWord);
-  console.log('guesses:', guesses);
-  console.log('currentLetter:', currentLetter);
-  console.log('correctLetters:', correctLetters);
-  console.log('allLetters:', allLetters);
-});
+// app.get('/:id', (req, res) => {
+//   currentLetter = alphabet[req.params.id];
+//   if (currentWord.indexOf(currentLetter) > -1) {
+//     correctLetters.push(currentLetter);
+//   };
+//   correctLetters = [...new Set(correctLetters)];
+//   allLetters.push(currentLetter);
+//   guesses -= 1;
+//   link = null;
+//   res.render('index.ejs', {
+//     alphabet: alphabet,
+//     gameWords: gameWords,
+//     currentWord: currentWord,
+//     guesses: guesses,
+//     currentLetter: currentLetter,
+//     guessWord: guessWord,
+//     correctLetters: correctLetters,
+//     allLetters: allLetters,
+//     link: link
+//   });
+//   console.log('--- new turn ---');
+//   console.log('gameWords:', gameWords);
+//   console.log('currentWord:', currentWord);
+//   console.log('guesses:', guesses);
+//   console.log('currentLetter:', currentLetter);
+//   console.log('correctLetters:', correctLetters);
+//   console.log('allLetters:', allLetters);
+// });
 
 
 

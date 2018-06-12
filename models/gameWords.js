@@ -75,10 +75,15 @@ module.exports = {
     this.currentWord = this.gameWords[currentWordIndex].word.split("");
   },
 
-  flagUsedWord: function (i) {
-    this.gameWords[i].used = 1;
-    this.gameWords[i].currentWord = 0;
+  flagUsedWord: function (arr) {
+    console.log(arr.join(""));
+    for (i = 0; i < this.gameWords.length; i++) {
+      if (this.gameWords[i].word === arr.join("")) {
+        this.gameWords[i].used = 1;
+        this.gameWords[i].currentWord = 0;
+      }
+    }
+
     console.log(this.gameWords);
   }
 }
-// module.exports = gameWords, currentWord, findUnusedWords, flagUsedWord;

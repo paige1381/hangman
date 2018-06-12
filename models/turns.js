@@ -47,6 +47,12 @@ module.exports = {
 
   findRemainingTurns: function () {
     this.turnsLeft = 9 - this.turns.length;
+  },
+
+  resetTurns: function () {
+    turnsLeft: null,
+    this.turns.splice(1, this.turns.length - 1);
+    this.findRemainingTurns();
   }
 
 }
