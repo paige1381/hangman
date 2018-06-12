@@ -8,6 +8,13 @@
   <body>
     <nav>
       <div class="menu">
+        <% if (turns < 8) { %>
+          <a href="/undo" class="link">Undo</a>
+        <% }
+        else { %>
+          <div class="link">Undo</div>
+        <% } %>
+        <a href="/share" class="share link">Share</a>
 
       </div>
     </nav>

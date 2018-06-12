@@ -53,6 +53,10 @@ module.exports = {
     turnsLeft: null,
     this.turns.splice(1, this.turns.length - 1);
     this.findRemainingTurns();
+  },
+
+  undoTurn: function () {
+    this.turns.pop();
   }
 
 }
