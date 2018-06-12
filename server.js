@@ -43,7 +43,6 @@ app.get('/newRound', (req, res) => {
 });
 
 app.get('/undo', (req, res) => {
-  console.log('currentWord:', gameWords.currentWord);
   turns.undoTurn();
   turns.findCorrectLetters();
   turns.findRemainingTurns();
@@ -56,12 +55,7 @@ app.get('/undo', (req, res) => {
   });
 });
 
-app.get('/newRound', (req, res) => {
-  console.log('currentWord:', gameWords.currentWord);
-  gameWords.flagUsedWord(gameWords.currentWord);
-  gameWords.findUnusedWords();
-  turns.clearCorrectLetters();
-  turns.resetTurns();
+app.get('/share', (req, res) => {
   res.render('index.ejs', {
     alphabet: alphabet,
     currentWord: gameWords.currentWord,
